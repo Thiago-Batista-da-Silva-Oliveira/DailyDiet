@@ -1,5 +1,6 @@
+import { Header } from "@components/Header";
 import { useNavigation } from "@react-navigation/native"
-import { Text, TouchableOpacity, View } from "react-native"
+import { Container } from "./styles";
 
 export const Home = ()=> {
     const navigation = useNavigation();
@@ -8,11 +9,8 @@ export const Home = ()=> {
         navigation.navigate("new");
     }
     return (
-        <View>
-            <Text>Home</Text>
-            <TouchableOpacity onPress={() => handleNew()}>
-                <Text>Nova refeição</Text>
-            </TouchableOpacity>
-        </View>
+        <Container>
+           <Header />
+        </Container>
     )
 }
