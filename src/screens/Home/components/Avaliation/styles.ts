@@ -19,13 +19,13 @@ background: ${({theme, isPositive = true}) => isPositive ? theme.COLORS.GREEN_LI
 const Title = styled.Text`
  font-size: ${({theme}) => theme.FONT_SIZE.XXXL};
  color: ${({theme}) => theme.COLORS.GRAY_1};
- font-weight: ${({theme}) => theme.FONT_FAMILY.BOLD};
+ font-weight: 700;
 `
 
 const SubTitle = styled.Text`
  font-size: ${({theme}) => theme.FONT_SIZE.MD};
  color: ${({theme}) => theme.COLORS.GRAY_2};
- font-weight: ${({theme}) => theme.FONT_FAMILY.REGULAR};
+ font-weight: 400;
 `
 
 const NavigationButton = styled(TouchableOpacity)`
