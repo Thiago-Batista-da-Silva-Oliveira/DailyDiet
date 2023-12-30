@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { Container, FormContainer } from "./styles";
+import { Container, FormContainer, InputsContainer } from "./styles";
 import { Header } from "./components/Header";
 import { Text } from "react-native";
+import { Button } from "@components/Button";
 
 export const New = () => {
     const navigation = useNavigation();
@@ -13,7 +14,10 @@ export const New = () => {
        <Container>
          <Header title="Refeição" onClickBack={() => handleBack()} />
          <FormContainer>
+          <InputsContainer>
            <Text>Inputs</Text>
+          </InputsContainer>
+          <Button title="Cadastrar refeição" onPress={() => console.log('clicou')} />
          </FormContainer>
        </Container>
     )

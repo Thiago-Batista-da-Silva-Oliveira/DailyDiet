@@ -7,6 +7,7 @@ interface IProps {
 
 const Container = styled.View<IProps>`
 display: flex;
+flex: 1;
 `;
 
 const Title = styled.Text`
@@ -25,13 +26,15 @@ const FormContainer = styled.View`
   display: flex;
   width: 100%;
   padding: 40px 24px;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 148px;
-  height: 100%;
   background-color: ${({theme})=> theme.COLORS.GRAY_7};
   border-radius: 20px;
   margin-top: -20px;
+  flex: 1;
 `
 
-export { Container, Title, NavigationButton, FormContainer }
+const InputsContainer = styled.View `
+  flex: 1;
+  margin-bottom: 10px;
+`
+
+export { Container, Title, NavigationButton, FormContainer, InputsContainer }
