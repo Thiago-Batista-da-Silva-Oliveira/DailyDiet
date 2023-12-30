@@ -7,10 +7,6 @@ import { Meals } from "./components/Meals";
 export const Home = ()=> {
     const navigation = useNavigation();
 
-    const handleNew = () => {
-        navigation.navigate("new");
-    }
-
     const handleDetail = () => {
         navigation.navigate("detail");
     }

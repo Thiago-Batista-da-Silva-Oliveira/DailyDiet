@@ -2,8 +2,15 @@ import { Button } from "@components/Button"
 import { ComponentTitle, Container, Divisor, Meal, MealContainer, OnDietCircle, RegisteredMealsContainer, SubTitle, Title } from "./styles"
 import { Plus } from "phosphor-react-native"
 import { FlatList } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 
 export const Meals = () => {
+    const navigation = useNavigation();
+
+    const handleNew = () => {
+        navigation.navigate("new");
+    }
+
     const dummyData = [
         {
             id: '1',
@@ -59,7 +66,7 @@ export const Meals = () => {
             <ComponentTitle>Refeições</ComponentTitle>
             <Button 
               Icon={<Plus color="#FFFFFF" size={24} />}
-              onPress={() => console.log('clicou')} title="Nova Refeição" />
+              onPress={() => handleNew()} title="Nova Refeição" />
               <FlatList
         data={dummyData}
         keyExtractor={(item) => item.id}

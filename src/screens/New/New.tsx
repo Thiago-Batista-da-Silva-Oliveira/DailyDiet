@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import { Text, TouchableOpacity, View } from "react-native"
+import { Container, FormContainer } from "./styles";
+import { Header } from "./components/Header";
+import { Text } from "react-native";
 
 export const New = () => {
     const navigation = useNavigation();
@@ -8,11 +10,11 @@ export const New = () => {
         navigation.navigate("home");
     }
     return (
-        <View>
-            <Text>Nova refeição</Text>
-            <TouchableOpacity onPress={() => handleBack()}>
-                <Text>Home</Text>
-            </TouchableOpacity>
-        </View>
+       <Container>
+         <Header title="Refeição" onClickBack={() => handleBack()} />
+         <FormContainer>
+           <Text>Inputs</Text>
+         </FormContainer>
+       </Container>
     )
 }
