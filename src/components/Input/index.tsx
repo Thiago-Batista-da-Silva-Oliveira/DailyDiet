@@ -1,10 +1,10 @@
-import { Control, Controller, FieldValues, useForm } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import { Container, StyledInput, Title } from "./styles";
 
 interface IProps {
     title: string;
     name: string;
-    control: Control<FieldValues, any>;
+    control: Control<any, any>;
     placeholder?: string;
     height?: string;
 }
