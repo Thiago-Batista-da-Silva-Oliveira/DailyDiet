@@ -20,7 +20,12 @@ export const New = () => {
 
     const {isOpen: isDatePickerOpen, toggle: toggleDatePicker} = useDisclosure();
     const {isOpen: isTimePickerOpen, toggle: toggleTimePicker} = useDisclosure();
-    const { control, handleSubmit, setValue, watch, getValues } = useForm<IMealForm>();
+    const { control, handleSubmit, setValue, watch, getValues } = useForm<IMealForm>({
+      defaultValues: {
+        date: new Date(),
+        time: new Date(),
+      }
+    });
     watch('date')
     watch('time')
     const navigation = useNavigation();
@@ -38,6 +43,8 @@ export const New = () => {
        // setValue('date', date)
     }
 
+    console.log(isDatePickerOpen)
+
     return (
        <Container>
          <Header title="Refeição" onClickBack={() => handleBack()} />
@@ -46,11 +53,11 @@ export const New = () => {
            <ControlledInput control={control} name="name" title="Nome" placeholder="Sanduíche"  />
            <ControlledInput control={control} name="description" title="Descrição" height="142px" placeholder=""  />
            <DateInputsContainer>
-           <Pressable style={{flex: 1}} onPress={() => toggleDatePicker()}>
-             <ControlledInput control={control} name="date" title="Data" placeholder="01/01/2024"  />
+           <Pressable style={{flex: 1, backgroundColor: 'red', zIndex: 999}} onPress={() => toggleDatePicker()}>
+             <ControlledInput editable={false} control={control} name="date" title="Data" placeholder="01/01/2024"  />
            </Pressable>
-          <Pressable style={{flex: 1}} onPress={() => toggleTimePicker()}>
-           <ControlledInput control={control} name="time" title="Hora" placeholder="10:00"  />
+          <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => toggleTimePicker()}>
+           <ControlledInput editable={false} control={control} name="time" title="Hora" placeholder="10:00"  />
           </Pressable>
             {
               isDatePickerOpen && (
