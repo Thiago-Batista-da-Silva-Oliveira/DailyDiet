@@ -8,6 +8,7 @@ interface IProps {
 const Container = styled.View<IProps>`
 display: flex;
 flex: 1;
+gap: 10px;
 `;
 
 const Title = styled.Text`
@@ -35,6 +36,15 @@ const FormContainer = styled.View`
 const InputsContainer = styled.View `
   flex: 1;
   margin-bottom: 10px;
+  gap: 15px;
 `
 
-export { Container, Title, NavigationButton, FormContainer, InputsContainer }
+const DateInputsContainer = styled.View `
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  max-height: 100px;
+`
+
+export { Container, Title, NavigationButton, FormContainer, InputsContainer, DateInputsContainer }

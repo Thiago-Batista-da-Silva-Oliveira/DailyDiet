@@ -25,6 +25,7 @@ const StyledInput = styled.TextInput<IInputProps>`
  align-self: stretch;
  border-radius: 6px;
  border-color: ${({theme}) => theme.COLORS.GRAY_5};
+ border-width: 1px;
 `
 
 
