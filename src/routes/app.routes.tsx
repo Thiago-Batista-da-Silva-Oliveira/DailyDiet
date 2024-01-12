@@ -1,10 +1,10 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import { Detail } from '@screens/Detail/Detail';
+import { Feedback } from '@screens/Feedback';
 import { Home } from '@screens/Home/Home';
 import { New } from '@screens/New/New';
 
 const { Navigator, Screen } = createNativeStackNavigator();
-
 
 export function AppRoutes() {
     return (
@@ -22,6 +22,10 @@ export function AppRoutes() {
             <Screen
              name="new"
              component={New}
+            />
+           <Screen
+             name="feedback"
+             component={Feedback}
             />
         </Navigator>
     )

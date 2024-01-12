@@ -53,7 +53,7 @@ export const New = () => {
            <ControlledInput control={control} name="name" title="Nome" placeholder="Sanduíche"  />
            <ControlledInput control={control} name="description" title="Descrição" height="142px" placeholder=""  />
            <DateInputsContainer>
-           <Pressable style={{flex: 1, backgroundColor: 'red', zIndex: 999}} onPress={() => toggleDatePicker()}>
+           <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => toggleDatePicker()}>
              <ControlledInput editable={false} control={control} name="date" title="Data" placeholder="01/01/2024"  />
            </Pressable>
           <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => toggleTimePicker()}>
