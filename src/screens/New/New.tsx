@@ -1,14 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-import { Container, DateInputsContainer, FormContainer, InputsContainer } from "./styles";
+import { Container, DateInputsContainer, FormContainer, InputsContainer, OnDietContainer } from "./styles";
 import { Header } from "./components/Header";
 import { Button } from "@components/Button";
 import { ControlledInput } from "@components/Input";
 import { useForm } from "react-hook-form";
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useDisclosure } from "@hooks/useDisclosure";
 import { useState } from "react";
 import { format } from "date-fns";
+import { OnDietButton } from "./components/OnDietButton";
 
 interface IMealForm {
   name: string;
@@ -24,7 +25,7 @@ export const New = () => {
     const {isOpen: isTimePickerOpen, open: openTimePicker, close: closeTimePicker} = useDisclosure();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(new Date());
-    const { control, handleSubmit, setValue, watch } = useForm<IMealForm>({
+    const { control, handleSubmit, setValue, watch, getValues } = useForm<IMealForm>({
       defaultValues: {
         date: format(selectedTime, 'dd/MM/yyyy'),
         time: format(selectedTime, 'hh:mm'),
@@ -32,6 +33,7 @@ export const New = () => {
     });
     watch('date')
     watch('time')
+    watch('isOnDiet')
     const navigation = useNavigation();
 
     const handleBack = () => {
@@ -98,6 +100,14 @@ export const New = () => {
               )
             }
            </DateInputsContainer>
+           <OnDietContainer>
+               <OnDietButton isClicked={getValues('isOnDiet')} isOnDietType onPress={() => {
+                 setValue('isOnDiet', true);
+               }} />
+               <OnDietButton isClicked={getValues('isOnDiet') === false} isOnDietType={false} onPress={() => {
+                 setValue('isOnDiet', false);
+              }} />
+           </OnDietContainer>
           </InputsContainer>
           <Button title="Cadastrar refeição" onPress={handleSubmit(onSubmit)} />
          </FormContainer>

@@ -47,4 +47,12 @@ const DateInputsContainer = styled.View `
   max-height: 100px;
 `
 
-export { Container, Title, NavigationButton, FormContainer, InputsContainer, DateInputsContainer }
+const OnDietContainer = styled.View `
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex: 1;
+  max-height: 50px;
+`
+
+export { Container, Title, NavigationButton, FormContainer, InputsContainer, DateInputsContainer, OnDietContainer }
