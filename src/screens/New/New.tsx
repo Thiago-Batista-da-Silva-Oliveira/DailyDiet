@@ -18,8 +18,8 @@ interface IMealForm {
 
 export const New = () => {
 
-    const {isOpen: isDatePickerOpen, toggle: toggleDatePicker} = useDisclosure();
-    const {isOpen: isTimePickerOpen, toggle: toggleTimePicker} = useDisclosure();
+    const {isOpen: isDatePickerOpen, open: openDatePicker, close: closeDatePicker} = useDisclosure();
+    const {isOpen: isTimePickerOpen, open: openTimePicker, close: closeTimePicker} = useDisclosure();
     const { control, handleSubmit, setValue, watch, getValues } = useForm<IMealForm>({
       defaultValues: {
         date: new Date(),
@@ -43,8 +43,6 @@ export const New = () => {
        // setValue('date', date)
     }
 
-    console.log(isDatePickerOpen)
-
     return (
        <Container>
          <Header title="Refeição" onClickBack={() => handleBack()} />
@@ -53,10 +51,16 @@ export const New = () => {
            <ControlledInput control={control} name="name" title="Nome" placeholder="Sanduíche"  />
            <ControlledInput control={control} name="description" title="Descrição" height="142px" placeholder=""  />
            <DateInputsContainer>
-           <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => toggleDatePicker()}>
+           <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => {
+            openDatePicker();
+            closeTimePicker();
+           }}>
              <ControlledInput editable={false} control={control} name="date" title="Data" placeholder="01/01/2024"  />
            </Pressable>
-          <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => toggleTimePicker()}>
+          <Pressable style={{flex: 1,  zIndex: 999}} onPress={() => {
+             openTimePicker();
+             closeDatePicker();
+          }}>
            <ControlledInput editable={false} control={control} name="time" title="Hora" placeholder="10:00"  />
           </Pressable>
             {
@@ -66,7 +70,7 @@ export const New = () => {
             }
             {
               isTimePickerOpen && (
-                <DateTimePicker value={getValues("time")} onChange={(date) => setTime(date)} mode="time" />
+                <DateTimePicker  value={getValues("time")} onChange={(date) => setTime(date)} mode="time" />
               )
             }
            </DateInputsContainer>
