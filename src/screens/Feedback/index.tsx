@@ -1,6 +1,8 @@
 import { useNavigation, useRoute } from "@react-navigation/native"
-import { Container, Title } from "./styles"
-import { Text } from "react-native";
+import { Container, Text, Title } from "./styles"
+import onDietImage from '@assets/onDiet.png';
+import notOnDietImage from '@assets/notOnDiet.png';
+import { Image } from "react-native";
 import { Button } from "@components/Button";
 
 type RouteParams = {
@@ -23,11 +25,11 @@ export const Feedback = () => {
    const SubTitle = (onDiet = false) => {
    if (onDiet) {
     return (
-        <Text>Você continua <Text>dentro da dieta.</Text> Muito bem!</Text>
+        <Text>Você continua <Text bold>dentro da dieta.</Text> Muito bem!</Text>
     )
    }
    return (
-    <Text>Você <Text>saiu da dieta</Text> dessa vez, mas continue se esforçando e não desista!</Text>
+    <Text>Você <Text bold>saiu da dieta</Text> dessa vez, mas continue se esforçando e não desista!</Text>
    )
    }
 
@@ -37,7 +39,8 @@ export const Feedback = () => {
               {title}
            </Title>
            {SubTitle(onDiet)}
-         <Button onPress={() => navigateBack()} title="Ir para a página inicial"/>
+           {onDiet ? <Image source={onDietImage} /> : <Image source={notOnDietImage} />}
+         <Button width="250px" onPress={() => navigateBack()} title="Ir para a página inicial"/>
         </Container>
     )
 }

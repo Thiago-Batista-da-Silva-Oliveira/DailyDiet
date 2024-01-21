@@ -4,6 +4,10 @@ interface ITitle {
     onDiet?: boolean;
 }
 
+interface IText {
+  bold?: boolean;
+}
+
 const Container = styled.View`
   height: 100%;
   display: 'flex';
@@ -21,4 +25,13 @@ const Title = styled.Text<ITitle>`
  font-weight: 700;
 `;
 
-export { Container, Title }
+const Text = styled.Text<IText>`
+ color: ${({theme}) => theme.COLORS.GRAY_1};
+ text-align: center;
+ font-size: ${({theme}) => theme.FONT_SIZE.LG};
+ font-style: normal;
+ font-weight: ${({theme, bold}) => bold ? 700 : 400};
+`;
+
+
+export { Container, Title, Text }

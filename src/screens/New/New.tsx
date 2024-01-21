@@ -41,7 +41,10 @@ export const New = () => {
     }
 
     const onSubmit = (data: IMealForm ) => {
-      console.log(data)
+      console.log(data);
+      navigation.navigate("feedback", {
+        onDiet: data.isOnDiet,
+      });
     }
 
     const closePicker = () => {
