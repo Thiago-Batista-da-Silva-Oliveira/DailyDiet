@@ -5,7 +5,7 @@ interface IProps {
    isEditing?: boolean
 }
 
-const Container = styled.View<IProps>`
+const Container = styled.KeyboardAvoidingView<IProps>`
 display: flex;
 flex: 1;
 gap: 10px;
