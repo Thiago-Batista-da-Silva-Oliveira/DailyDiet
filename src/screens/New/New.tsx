@@ -7,6 +7,8 @@ import {
   OnDietContainer,
   SubTitle,
 } from "./styles";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Header } from "./components/Header";
 import { Button } from "@components/Button";
 import { ControlledInput } from "@components/Input";
@@ -22,6 +24,13 @@ import { OnDietButton } from "./components/OnDietButton";
 import { createStorate } from "@storage/createStorage";
 import { IMealForm } from "@dtos/index";
 
+const schema = z.object({
+  name: z.string({
+    required_error: "O nome é obrigatório",
+  }),
+  description: z.string().optional(),
+});
+
 export const New = () => {
   const {
     isOpen: isDatePickerOpen,
@@ -35,13 +44,14 @@ export const New = () => {
   } = useDisclosure();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
-  const { control, handleSubmit, setValue, watch, getValues } =
+  const { control, handleSubmit, setValue, watch, getValues, formState: {errors} } =
     useForm<IMealForm>({
       defaultValues: {
         date: format(selectedTime, "dd/MM/yyyy"),
         time: format(selectedTime, "hh:mm"),
         isOnDiet: true,
       },
+      resolver: schema && zodResolver(schema),
     });
   watch("date");
   watch("time");
@@ -95,12 +105,14 @@ export const New = () => {
         <FormContainer style={{ flexGrow: 1 }}>
           <InputsContainer>
             <ControlledInput
+              errorMessage={errors.name?.message}
               control={control}
               name="name"
               title="Nome"
               placeholder="Sanduíche"
             />
             <ControlledInput
+              errorMessage={errors.description?.message}
               control={control}
               name="description"
               title="Descrição"

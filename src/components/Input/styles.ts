@@ -16,6 +16,12 @@ const Title = styled.Text`
  font-weight: 700;
 `
 
+const ErrorMessage = styled.Text`
+ font-size: ${({theme}) => theme.FONT_SIZE.SM};
+ color: ${({theme}) => theme.COLORS.RED_DARK};
+ font-weight: 700;
+`
+
 const StyledInput = styled.TextInput<IInputProps>`
  display: flex;
  height: ${({height}) => height};
@@ -29,4 +35,4 @@ const StyledInput = styled.TextInput<IInputProps>`
 `
 
 
-export { Container, Title, StyledInput }
+export { Container, Title, StyledInput, ErrorMessage }

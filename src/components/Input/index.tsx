@@ -1,5 +1,5 @@
 import { Control, Controller } from "react-hook-form";
-import { Container, StyledInput, Title } from "./styles";
+import { Container, ErrorMessage, StyledInput, Title } from "./styles";
 import { TextInputProps } from "react-native";
 
 interface IProps extends TextInputProps {
@@ -7,6 +7,7 @@ interface IProps extends TextInputProps {
   name: string;
   control: Control<any, any>;
   placeholder?: string;
+  errorMessage?: string;
   height?: string;
 }
 
@@ -16,6 +17,7 @@ export const ControlledInput = ({
   control,
   placeholder,
   height = "48px",
+  errorMessage,
   ...rest
 }: IProps) => {
   return (
@@ -32,6 +34,7 @@ export const ControlledInput = ({
             placeholder={placeholder}
             {...rest}
           />
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         </Container>
       )}
     />
