@@ -1,96 +1,82 @@
-import { Button } from "@components/Button"
-import { ComponentTitle, Container, Divisor, Meal, MealContainer, OnDietCircle, RegisteredMealsContainer, SubTitle, Title } from "./styles"
-import { Plus } from "phosphor-react-native"
-import { FlatList } from "react-native"
-import { useNavigation } from "@react-navigation/native"
+import { Button } from "@components/Button";
+import {
+  ComponentTitle,
+  Container,
+  Divisor,
+  Meal,
+  MealContainer,
+  OnDietCircle,
+  RegisteredMealsContainer,
+  SubTitle,
+  Title,
+} from "./styles";
+import { Plus } from "phosphor-react-native";
+import { ActivityIndicator, FlatList } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { getAllStorage } from "@storage/getStorage";
+import { groupByDate } from "@utils/groupMealsByDate";
+import { useCallback, useState } from "react";
+import { IGroupedMeals } from "@dtos/index";
 
 export const Meals = () => {
-    const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [meals, setMeals] = useState<IGroupedMeals[]>([]);
 
-    const handleNew = () => {
-        navigation.navigate("new");
+  useFocusEffect(useCallback(() => {
+    const loadMeels = async () => {
+      setIsLoading(true);
+      try {
+        const storagedMeals = await getAllStorage();
+        const groupedMealsByDate = groupByDate(storagedMeals);
+        setMeals(groupedMealsByDate);
+      } catch (error) {
+         console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
+    loadMeels();
+  }, []))
+  const navigation = useNavigation();
 
-    const dummyData = [
-        {
-            id: '1',
-            date: '12.08.23',
-            data: [
-                {
-                    id: '1',
-                    title: 'X-tudo',
-                    isOnDiet: false,
-                    time: '20:00'
-                },
-                {
-                    id: '2',
-                    title: 'Whey protein com leite',
-                    isOnDiet: true,
-                    time: '16:00'
-                },
-                {
-                    id: '3',
-                    title: 'Salada',
-                    isOnDiet: true,
-                    time: '13:00'
-                },
-            ]
-        },
-        {
-            id: '2',
-            date: '11.08.23',
-            data: [
-                {
-                    id: '1',
-                    title: 'Pizza',
-                    isOnDiet: false,
-                    time: '20:00'
-                },
-                {
-                    id: '2',
-                    title: 'Whey protein com leite',
-                    isOnDiet: true,
-                    time: '16:00'
-                },
-                {
-                    id: '3',
-                    title: 'Salada',
-                    isOnDiet: true,
-                    time: '13:00'
-                },
-            ]
-        }
-    ]
-    return (
-        <Container>
-            <ComponentTitle>Refeições</ComponentTitle>
-            <Button 
-              Icon={<Plus color="#FFFFFF" size={24} />}
-              onPress={() => handleNew()} title="Nova Refeição" />
-              <FlatList
-        data={dummyData}
+  const handleNew = () => {
+    navigation.navigate("new");
+  };
+
+  return (
+    <Container>
+      <ComponentTitle>Refeições</ComponentTitle>
+      <Button
+        Icon={<Plus color="#FFFFFF" size={24} />}
+        onPress={() => handleNew()}
+        title="Nova Refeição"
+      />
+    {
+      isLoading ? (
+        <ActivityIndicator size="large" color="#007AFF" />
+      ) : (
+        <FlatList
+        data={meals}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-         <RegisteredMealsContainer>
-            <Title>
-                {item.date}
-            </Title>
-            {
-                    item.data.map((meal) => (
-                        <MealContainer key={meal.id}>
-                           <SubTitle>{meal.time}</SubTitle>
-                           <Divisor />
-                           <Meal>
-                            <ComponentTitle>{meal.title}</ComponentTitle>
-                            <OnDietCircle onDiet={meal.isOnDiet} />
-                           </Meal>
-                        </MealContainer>
-                    ))
-                }
-         </RegisteredMealsContainer>
+          <RegisteredMealsContainer>
+            <Title>{item.date}</Title>
+            {item.data.map((meal) => (
+              <MealContainer key={meal.id}>
+                <SubTitle>{meal.time}</SubTitle>
+                <Divisor />
+                <Meal>
+                  <ComponentTitle>{meal.name}</ComponentTitle>
+                  <OnDietCircle onDiet={meal.isOnDiet} />
+                </Meal>
+              </MealContainer>
+            ))}
+          </RegisteredMealsContainer>
         )}
         showsVerticalScrollIndicator={false}
       />
-        </Container>
-    )
-}
+      )
+    }
+    </Container>
+  );
+};

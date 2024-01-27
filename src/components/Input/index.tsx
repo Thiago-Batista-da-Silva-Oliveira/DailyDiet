@@ -26,14 +26,11 @@ export const ControlledInput = ({
         <Container>
           <Title>{title}</Title>
           <StyledInput
-            caretHidden={false}
-            keyboardType="default"
-            autoCapitalize="none"
-            {...rest}
-            onChange={onChange}
+            onChangeText={onChange}
             value={value}
             height={height}
             placeholder={placeholder}
+            {...rest}
           />
         </Container>
       )}

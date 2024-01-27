@@ -1,6 +1,7 @@
+import { IMealForm } from "@dtos/index";
 import AsyncStorage  from "@react-native-async-storage/async-storage";
 
-export async function getAllStorage() {
+export async function getAllStorage(): Promise<IMealForm[]> {
   try {
     const storage = await AsyncStorage.getItem('@storage-daily-diet');
     const meals = storage ? JSON.parse(storage) : [];
@@ -11,8 +12,7 @@ export async function getAllStorage() {
   }
 }
 
-
-export async function getStorage(id: string) {
+export async function getStorage(id: string): Promise<IMealForm> {
   try {
     const storage = await AsyncStorage.getItem('@storage-daily-diet');
     const meals = storage ? JSON.parse(storage) : [];

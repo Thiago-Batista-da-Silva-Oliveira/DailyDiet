@@ -5,6 +5,7 @@ import {
   FormContainer,
   InputsContainer,
   OnDietContainer,
+  SubTitle,
 } from "./styles";
 import { Header } from "./components/Header";
 import { Button } from "@components/Button";
@@ -18,14 +19,8 @@ import { useDisclosure } from "@hooks/useDisclosure";
 import { useState } from "react";
 import { format } from "date-fns";
 import { OnDietButton } from "./components/OnDietButton";
-
-interface IMealForm {
-  name: string;
-  description?: string;
-  date: string;
-  time: string;
-  isOnDiet: boolean;
-}
+import { createStorate } from "@storage/createStorage";
+import { IMealForm } from "@dtos/index";
 
 export const New = () => {
   const {
@@ -45,6 +40,7 @@ export const New = () => {
       defaultValues: {
         date: format(selectedTime, "dd/MM/yyyy"),
         time: format(selectedTime, "hh:mm"),
+        isOnDiet: true,
       },
     });
   watch("date");
@@ -57,7 +53,11 @@ export const New = () => {
   };
 
   const onSubmit = (data: IMealForm) => {
-    console.log(data);
+    const id = Math.random().toString(36).substring(7);
+    createStorate({
+      ...data,
+      id,
+    });
     navigation.navigate("feedback", {
       onDiet: data.isOnDiet,
     });
@@ -153,6 +153,7 @@ export const New = () => {
                 />
               )}
             </DateInputsContainer>
+            <SubTitle>Está dentro da dieta?</SubTitle>
             <OnDietContainer>
               <OnDietButton
                 isClicked={getValues("isOnDiet")}
