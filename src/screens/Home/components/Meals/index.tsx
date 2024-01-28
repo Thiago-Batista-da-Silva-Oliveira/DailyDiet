@@ -38,6 +38,11 @@ export const Meals = () => {
     loadMeels();
   }, []))
   const navigation = useNavigation();
+  
+  const onClickMeal = (id: string) => {
+    navigation.navigate("mealDetail", {id});
+  };
+
 
   const handleNew = () => {
     navigation.navigate("new");
@@ -62,7 +67,7 @@ export const Meals = () => {
           <RegisteredMealsContainer>
             <Title>{item.date}</Title>
             {item.data.map((meal) => (
-              <MealContainer key={meal.id}>
+              <MealContainer onPress={() => onClickMeal(meal.id)} key={meal.id}>
                 <SubTitle>{meal.time}</SubTitle>
                 <Divisor />
                 <Meal>

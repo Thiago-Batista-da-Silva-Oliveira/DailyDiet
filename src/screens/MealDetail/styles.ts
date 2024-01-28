@@ -64,8 +64,26 @@ const OnDietContainer = styled.View`
   display: flex;
   flex-direction: row;
   gap: 10px;
-  flex: 1;
-  max-height: 50px;
+  background-color: ${({ theme }) => theme.COLORS.GRAY_6};
+  align-items: center;
+  padding: 10px;
+  width: 150px;
+  border-radius: 7px;
+  margin-top: 10px;
+`;
+
+const OnDietCircle = styled.View<{ onDiet: boolean }>`
+  width: 12px;
+  height: 12px;
+  border-radius: 7px;
+  background-color: ${({ theme, onDiet }) =>
+    onDiet ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
+  `;
+
+const ButtonContainer = styled.View`
+  display: flex;
+  gap: 10px;
+  padding: 10px;
 `;
 
 export {
@@ -78,4 +96,6 @@ export {
   OnDietContainer,
   SubTitle,
   Description,
+  OnDietCircle,
+  ButtonContainer,
 };

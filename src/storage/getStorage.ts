@@ -16,8 +16,8 @@ export async function getStorage(id: string): Promise<IMealForm> {
   try {
     const storage = await AsyncStorage.getItem('@storage-daily-diet');
     const meals = storage ? JSON.parse(storage) : [];
-  
-    return meals[id];
+      
+    return meals.find((meal: IMealForm) => meal.id === id);
   } catch(err) {
     throw err;
   }

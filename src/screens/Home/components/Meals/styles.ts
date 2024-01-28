@@ -30,7 +30,7 @@ width: 100%;
 margin: 10px 0px;
 `;
 
-const MealContainer = styled.View`
+const MealContainer = styled.TouchableOpacity`
 display: flex;
 flex-direction: row;
 padding: 14px 16px 14px 12px;

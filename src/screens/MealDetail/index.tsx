@@ -1,11 +1,12 @@
 import { Header } from "@screens/New/components/Header";
-import { Container, Description, InfoContainer, SubTitle, Title } from "./styles";
+import { ButtonContainer, Container, Description, InfoContainer, OnDietCircle, OnDietContainer, SubTitle, Title } from "./styles";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getStorage } from "@storage/getStorage";
 import { IMealForm } from "@dtos/index";
 import { Loading } from "@components/Loading";
 import { View } from "react-native";
+import { Button } from "@components/Button";
 
 interface IParams {
   id: string;
@@ -46,7 +47,8 @@ export const MealDetail = () => {
        <>
         <Header title="Refeição" onClickBack={() => handleBack()} />
         <InfoContainer>
-        <View style={{gap: 10}}>
+      <View style={{flex: 1}}>
+      <View style={{gap: 10}}>
           <Title>{meal?.name}</Title>
           <Description>{meal?.description}</Description>
         </View>
@@ -54,6 +56,15 @@ export const MealDetail = () => {
           <SubTitle>Data e hora</SubTitle>
           <Description>{meal?.date} as {meal?.time}</Description>
         </View>
+        <OnDietContainer>
+          <OnDietCircle onDiet={meal?.isOnDiet} />
+          <SubTitle>{meal?.isOnDiet ? 'dentro da dieta' : 'fora da dieta'}</SubTitle>
+        </OnDietContainer>
+      </View>
+        <ButtonContainer>
+          <Button title="Editar Refeição" onPress={() => console.log('Editar') }  />
+          <Button defaultBgColor={false} title="Excluir refeição" onPress={() => console.log('Editar') }  />
+        </ButtonContainer>
         </InfoContainer>
        </>
       )}
