@@ -23,6 +23,13 @@ const SubTitle = styled.Text`
   font-weight: 700;
 `;
 
+const TitleAlignedToCenter = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.XL};
+  color: ${({ theme }) => theme.COLORS.GRAY_1};
+  font-weight: 700;
+  text-align: center;
+`;
+
 const Description = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.SM};
   color: ${({ theme }) => theme.COLORS.GRAY_2};
@@ -86,6 +93,28 @@ const ButtonContainer = styled.View`
   padding: 10px;
 `;
 
+const ModalContainer = styled.View`
+  display: flex;
+  background-color: ${({ theme }) => theme.COLORS.GRAY_3};
+  opacity: 0.9;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
+`;
+
+const ModalContent = styled.View`
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+  gap: 10px;
+  height: 200px;
+  justify-content: space-between;
+`;
+
+
 export {
   Container,
   Title,
@@ -98,4 +127,7 @@ export {
   Description,
   OnDietCircle,
   ButtonContainer,
+  ModalContainer,
+  ModalContent,
+  TitleAlignedToCenter,
 };

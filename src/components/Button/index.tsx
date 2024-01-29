@@ -1,3 +1,4 @@
+import { TouchableOpacityProps } from "react-native";
 import { Container, Title } from "./styles";
 
 interface IProps {
@@ -9,6 +10,8 @@ interface IProps {
   defaultBgColor?: boolean;
 }
 
+type ButtonProps = IProps & TouchableOpacityProps;
+
 export const Button = ({
   Icon,
   onPress,
@@ -16,7 +19,7 @@ export const Button = ({
   isLoading = false,
   width = "100%",
   defaultBgColor = true,
-}: IProps) => {
+}: ButtonProps) => {
   return (
     <Container
       defaultBgColor={defaultBgColor}
