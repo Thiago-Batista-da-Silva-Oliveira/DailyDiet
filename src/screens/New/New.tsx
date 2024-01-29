@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { Platform, ScrollView, TouchableOpacity } from "react-native";
+import { Alert, Platform, ScrollView, TouchableOpacity } from "react-native";
 import { useDisclosure } from "@hooks/useDisclosure";
 import { useState } from "react";
 import { format } from "date-fns";
@@ -42,17 +42,24 @@ export const New = () => {
     open: openTimePicker,
     close: closeTimePicker,
   } = useDisclosure();
+  const [isSaving, setIsSaving] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
-  const { control, handleSubmit, setValue, watch, getValues, formState: {errors} } =
-    useForm<IMealForm>({
-      defaultValues: {
-        date: format(selectedTime, "dd/MM/yyyy"),
-        time: format(selectedTime, "hh:mm"),
-        isOnDiet: true,
-      },
-      resolver: schema && zodResolver(schema),
-    });
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    watch,
+    getValues,
+    formState: { errors },
+  } = useForm<IMealForm>({
+    defaultValues: {
+      date: format(selectedTime, "dd/MM/yyyy"),
+      time: format(selectedTime, "hh:mm"),
+      isOnDiet: true,
+    },
+    resolver: schema && zodResolver(schema),
+  });
   watch("date");
   watch("time");
   watch("isOnDiet");
@@ -63,14 +70,21 @@ export const New = () => {
   };
 
   const onSubmit = (data: IMealForm) => {
-    const id = Math.random().toString(36).substring(7);
-    createStorate({
-      ...data,
-      id,
-    });
-    navigation.navigate("feedback", {
-      onDiet: data.isOnDiet,
-    });
+    setIsSaving(true);
+    try {
+      const id = Math.random().toString(36).substring(7);
+      createStorate({
+        ...data,
+        id,
+      });
+      navigation.navigate("feedback", {
+        onDiet: data.isOnDiet,
+      });
+    } catch (err) {
+      Alert.alert("Erro ao cadastrar refeição", "Tente novamente mais tarde");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const closePicker = () => {
@@ -183,7 +197,11 @@ export const New = () => {
               />
             </OnDietContainer>
           </InputsContainer>
-          <Button title="Cadastrar refeição" onPress={handleSubmit(onSubmit)} />
+          <Button
+            disabled={isSaving}
+            title="Cadastrar refeição"
+            onPress={handleSubmit(onSubmit)}
+          />
         </FormContainer>
       </ScrollView>
     </Container>

@@ -104,7 +104,7 @@ export const MealDetail = () => {
             <ButtonContainer>
               <Button
                 title="Editar Refeição"
-                onPress={() => console.log("Editar")}
+                onPress={() => navigation.navigate("editMeal", { id })}
               />
               <Button
                 defaultBgColor={false}

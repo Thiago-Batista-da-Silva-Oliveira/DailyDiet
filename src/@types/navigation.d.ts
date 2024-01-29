@@ -7,6 +7,9 @@ export declare global {
             mealDetail: {
                 id: string;
             };
+            editMeal: {
+                id: string;
+            };
             feedback: {
                 onDiet: boolean;
             }
