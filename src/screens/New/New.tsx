@@ -69,16 +69,20 @@ export const New = () => {
     navigation.navigate("home");
   };
 
-  const onSubmit = (data: IMealForm) => {
+  const onSubmit = async (data: IMealForm) => {
     setIsSaving(true);
     try {
       const id = Math.random().toString(36).substring(7);
-      createStorate({
-        ...data,
+      await createStorate({
+        name: getValues("name"),
+        date: getValues("date"),
+        isOnDiet: getValues("isOnDiet"),
+        time: getValues("time"),
+        description: getValues("description"),
         id,
       });
       navigation.navigate("feedback", {
-        onDiet: data.isOnDiet,
+        onDiet: getValues("isOnDiet"),
       });
     } catch (err) {
       Alert.alert("Erro ao cadastrar refeição", "Tente novamente mais tarde");

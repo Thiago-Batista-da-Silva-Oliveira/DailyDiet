@@ -3,8 +3,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Container } from "./styles";
 import { Avaliation } from "./components/Avaliation";
 import { Meals } from "./components/Meals";
-import { getAllStorage } from "@storage/getStorage";
-import { useEffect, useState } from "react";
 import { useCheckAvaliation } from "@hooks/useCheckAvaliation";
 
 export const Home = () => {

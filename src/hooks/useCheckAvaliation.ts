@@ -1,18 +1,19 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { getAllStorage } from "@storage/getStorage";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useCheckAvaliation = () => {
     const [avaliation, setAvaliation] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
   
-    useEffect(() => {
+    useFocusEffect((useCallback(() => {
       const handleCheck = async () => {
         setIsLoading(true);
         try {
           const storagedMeals = await getAllStorage();
           const storagedMealsLength = storagedMeals.length;
           const onDiet = storagedMeals.filter((item) => item.isOnDiet).length;
-          const mealAvaliation = onDiet / storagedMealsLength;
+          const mealAvaliation = parseFloat((onDiet / storagedMealsLength).toFixed(2));
           setAvaliation(mealAvaliation * 100);
         } catch (error) {
           console.log(error);
@@ -21,7 +22,7 @@ export const useCheckAvaliation = () => {
         }
       };
       handleCheck();
-    }, []);
+    }, [])))
 
     return { avaliation, isLoading };
 }
